@@ -3,6 +3,8 @@ import './App.css'
 
 //Custom imports
 import Poster from './Poster'
+import ShowBounty from './ShowBounty'
+import BountyForm from './BountyForm'
 
 // API URL (Brandi's)
 const API_URL = `https://bounty-api-brandi.herokuapp.com/v1/bounties/`
@@ -35,6 +37,9 @@ function App() {
       <Poster 
         key={i}
         bounty={b}
+        refresh={callAPI}
+        currentId={currentBounty._id}
+        changeCurrent={setCurrentBounty}
       />
     
       )
@@ -48,7 +53,8 @@ function App() {
       </header>
       <main>
         {poster}
-        TODO: BOUNTY FORM
+        <ShowBounty currentBounty={currentBounty} />
+        <BountyForm refresh={callAPI}/>
       </main>
     </div>
   );
