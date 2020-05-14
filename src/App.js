@@ -1,16 +1,44 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
+//Custom imports
+import Poster from './Poster'
+
+// API URL (Brandi's)
+const API_URL = `https://bounty-api-brandi.herokuapp.com/v1/bounties/`
+
 function App() {
   // State variables
+  let [bounties, setBounties] = useState([])
+  let [currentBounty, setCurrentBounty] = useState({})
 
   // Effect hook
   useEffect(() => {
-    console.log('Hello!')
+    callAPI()
   }, [])
 
   // Function to call the API and retrieve the bounties
-  // TODO
+  const callAPI = () => {
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      setBounties(data)
+    })
+    .catch(err => {
+      console.log('Error!', err)
+    })
+  }
+
+  let poster = bounties.map((b, i) => {
+    return (
+      <Poster 
+        key={i}
+        bounty={b}
+      />
+    
+      )
+  })
 
   return (
     <div className="App">
@@ -19,7 +47,8 @@ function App() {
         <p>Reduce crime in your neighborhood!</p>
       </header>
       <main>
-        TODO: BOUNTIES AND BOUNTY FORM
+        {poster}
+        TODO: BOUNTY FORM
       </main>
     </div>
   );
